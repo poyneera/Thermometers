@@ -7,13 +7,13 @@
 int mySetup(){
 	int dev,temp;
 	dev = wiringPiI2CSetup(0x40);
-	temp = wiringPiI2CWrite(dev,RESET));
+	temp = wiringPiI2CWrite(dev,RESET);
 	temp = wiringPiI2CReadReg8(dev,RHT_RD);
 	usleep(50000);
 	return dev;
 }
 
-int myRead(int devid, int cmd){
+int myRead(int dev, int cmd){
 	int out,chk;
 	long start;
 	wiringPiI2CWrite(dev,cmd);

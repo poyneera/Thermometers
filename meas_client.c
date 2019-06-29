@@ -9,8 +9,8 @@
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <time.h>
-
-int hostname_to_ip(char *hostname,char *ip);
+#include <errno.h>
+#include <string.h>
 
 int main(void){
 	
@@ -49,8 +49,7 @@ int main(void){
 
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(31950);
-	hostname_to_ip("MainHouse",ip);
-	saddr.sin_addr.s_addr = inet_addr(ip);
+	saddr.sin_addr.s_addr = inet_addr("192.168.1.102");
 
 	stat = connect(sockid,(struct sockaddr *) &saddr,sizeof(saddr));
 
@@ -65,20 +64,4 @@ int main(void){
 	
 	return 0;
 
-}
-
-int hostname_to_ip(char *hostname,char *ip){
-
-	struct hostent *he;
-	struct in_addr **addr_list;
-	int i;
-	
-	he = gethostbyname(hostname);
-	
-	addr_list = (struct in_addr**) he->h_addr_list;
-	
-	strcpy(ip,inet_ntoa(*addr_list[0]));
-	
-	return 0;
-	
 }

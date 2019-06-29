@@ -7,6 +7,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <time.h>
+#include <errno.h>
 
 int main(void){
 	
