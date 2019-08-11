@@ -22,6 +22,7 @@ int main(void){
 	int blen;
 	struct sockaddr_in saddr;
 	FILE *fid;
+	const char* server_ip = "YOUR_SERVER_IP_HERE";
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
@@ -49,7 +50,7 @@ int main(void){
 
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(31950);
-	saddr.sin_addr.s_addr = inet_addr("192.168.1.102");
+	saddr.sin_addr.s_addr = inet_addr(server_ip);
 
 	stat = connect(sockid,(struct sockaddr *) &saddr,sizeof(saddr));
 
