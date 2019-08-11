@@ -2,14 +2,15 @@
 #include <stdio.h>
 #include <wiringPiI2C.h>
 #include <unistd.h>
+#include <math.h>
 #include "temp_util.h"
 
 int mySetup(){
 	int dev,temp;
 	dev = wiringPiI2CSetup(0x40);
 	temp = wiringPiI2CWrite(dev,RESET);
-	temp = wiringPiI2CReadReg8(dev,RHT_RD);
 	usleep(50000);
+	temp = wiringPiI2CReadReg8(dev,RHT_RD);
 	return dev;
 }
 
@@ -37,6 +38,7 @@ float tempProc(int raw){
 	out -=46.85;
 	out *= 1.8;
 	out += 32;
+	out = round(out);
 	return out;
 }
 
@@ -46,5 +48,6 @@ float humProc(int raw){
 	out *= 125;
 	out /= 65536;
 	out -= 6;
+	out = round(out);
 	return out;
 }
